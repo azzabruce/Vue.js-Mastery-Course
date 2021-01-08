@@ -59,7 +59,7 @@
             <div class="cart">
                 <p class="qty"> Qty ({{ cart }})</p>
                 <button v-on:click="addToCart">Add to cart</button>
-                <button v-on:click="removeFromCart">Remove From Cart</button>
+                <button v-on:click="removeFromCart" :disabled= "cart <= 0">Remove From Cart</button>
             </div>
             <!-- Add to cart button ends -->
 
