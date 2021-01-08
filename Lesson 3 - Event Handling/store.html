@@ -1,0 +1,99 @@
+<!-- 
+    File created: Janaury 07, 2021
+    Puprose: Practicing Vue.js Lesson: Condional Rendering List Rendering
+    Author: Azza Bruce
+ -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Vue.js Lessons</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://kit.fontawesome.com/5b91bc9d21.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- navigation bar -->
+    <div class="nav-bar">
+
+        <a href="index.html">Home</a>
+        <a href="#browse">Browse</a>
+        <a href="store.html">Store</a>
+        <a href="#faq">FAQ</a>
+        <a href="#testimonals">Testimonials</a>
+        <a href="#contact">Contact</a>
+    </div>
+    <!-- Main app, body section -->
+    <div id="app">
+        <!-- Mat collections store container -->
+        <div class="store-container">
+            <div class="matsCollection">
+                <!-- using the Vue v-binded  directive-->
+                <!-- for the prurpose of practice, I am using the short and long v-binded directive, however for future use, it is best to use the shortned directive -->
+                <img  v-bind:src="image">
+            </div>
+            <!-- product description and status -->
+            <div>
+                <!-- <h1 v-for="variant in variants">{{purpleMat}}</h1> -->
+                <h1>{{product}}</h1>
+                <p v-if="onSale">On Sale!</p>
+                <p v-if="inventory > 10">In stock</p>
+                <p v-else-if="inventory <=10 && purpleMatInventory >0">Almost out of stock</p>
+                <p v-else="inventory = 0">Out of Stock</p>
+                <!-- product decription starts -->
+                <ul>
+                    <li v-for="description in descriptions">{{description}}</li>
+                </ul>
+                <!-- product decription ends-->
+                <!-- product color starts -->
+                <div v-for ="variant in variants" :key = "variant.variantId">
+                    <p class="colors"  @mouseover = "updateProduct(variant.variantImg)">{{variant.variantColor}}</p>
+                </div>
+                <p>Note: Hover over the color text above to change photo</p>
+                <!-- product color ends -->
+            </div>
+            <!-- product description and status ends-->
+            <!-- Add to cart button starts -->
+            <div class="cart">
+                <p class="qty"> Qty ({{ cart }})</p>
+                <button v-on:click="addToCart">Add to cart</button>
+                <button v-on:click="removeFromCart">Remove From Cart</button>
+            </div>
+            <!-- Add to cart button ends -->
+
+        </div>
+</body>
+<!-- web app footer -->
+<footer class="footer">
+    <!-- using the shortned v-binded directive-->
+    <a href="index.html">Home</a>
+    <a href="#browse">Browse</a>
+    <a href="store.html">Store</a>
+    <a href="faq">FAQ</a>
+    <a href="testimonals">Testimonials</a>
+    <a href="contact">Contact</a>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="js/main.js"></script>
+
+</html>
+<!-- in View we create an instance Vue which is the heart of the application, 
+     plugs to an elment in the dom , and that element uses an expression to 
+ display that instance's data-->
+
+<!-- 
+     In this leason I have learnt the following:
+     Attribute binding
+        - Use v-bind:src ="property value" or for short use :src="property value"
+     Condtional rendering
+        -v-if if we have to toggle between two options to show something or not show. Other alterntive is to use v-show
+        -v-else-if
+        -v-else
+     List rendering
+         use the directive v-for
+    Iterating Over Objects
+
+
+  -->

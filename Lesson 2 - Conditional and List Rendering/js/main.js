@@ -25,19 +25,19 @@ let app = new Vue({
         purpleMat: 'Gym Mat',
         purpleGymMatImg: "./images/purpleGymMat.jpg",
         purpleGymMatAlt: "an image of purple gym mat",
-        purpleMatInventory: 100,
+        purpleMatInventory: 1229,
         onSale: true,
         descriptions: ["Made from thick Studio-quality NBR rubber", "Non-slip and non-stretch" ,"Mats include either a carry strap or a carry bag"],
         //Blue Gym mat data
         blueGymMat: './images/blueGymMat.jpg',
-        blueGymMatAlt: 'an image of purple gym mat',
+        blueGymMatAlt: 'an image of blue gym mat',
         variants: [
             {
                 variantId: 100,
                 variantColor: 'Purple'
             },
             {
-                variantId: 100,
+                variantId: 1230,
                 variantColor: 'Blue'
             }
         ]
