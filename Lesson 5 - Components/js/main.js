@@ -53,66 +53,71 @@ Vue.component('home',{
 })
 //create a vue component for our product
 Vue.component('product', {
+    props:{
+        premium: {
+            type: Boolean,
+            required: true
+        }
+    },
     template:
         `<div class= "product">
-            <!-- Mat collections store container -->
-            <div class="store-container">
-                <div class="matsCollection">
-                    <!-- using the Vue v-binded  directive-->
-                    <!-- for the prurpose of practice, I am using the short and long v-binded directive, however for future use, it is best to use the shortned directive -->
-                    <img  v-bind:src="image">
-                </div>
-                <!-- product description and status -->
-                <div>
-                    <!-- <h1 v-for="variant in variants">{{purpleMat}}</h1> -->
-                    <h1>{{productTitle}}</h1>
-                    <p v-if="onSale">On Sale!</p>
-                    <p v-if="inStock">In stock</p>
-                    <!-- <p v-else-if="inventory <=10 && purpleMatInventory >0">Almost out of stock</p> -->
-                    <p v-else="!inStock"
-                        >Out of Stock</p>
-                    <!-- product decription starts -->
-                    <ul>
-                        <li v-for="description in descriptions">{{description}}</li>
-                    </ul>
-                    <!-- product decription ends-->
-                    <!-- product color starts -->
-                    <div v-for = "(variant,index) in variants"
-                        :key = "variant.variantId"                     
-                        class ="colorBox"
-                        :style = "{backgroundColor: variant.variantColor}"
-                        @mouseover = "updateProduct(index)">
-                        <!-- <p class="colors"  >{{variant.variantColor}}</p> -->
-                    </div>                
-                    <!-- product color ends -->
-                </div>
-                <!-- product description and status ends-->
-                <!-- Add to cart button starts -->
-                <div class="cart">
-                    <p class="qty"> Qty ({{ cart }})</p>
-                    <button v-on:click="addToCart" :disabled = "!Stock">Add to cart</button>
-                    <button v-on:click="removeFromCart" :disabled= "cart <= 0">Remove From Cart</button>
-                </div>
-                <!-- Add to cart button ends -->
+        <!-- Mat collections store container -->
+        <div class="store-container">
+            <div class="matsCollection">
+                <!-- using the Vue v-binded  directive-->
+                <!-- for the prurpose of practice, I am using the short and long v-binded directive, however for future use, it is best to use the shortned directive -->
+                <img  v-bind:src="image">
             </div>
+            <!-- product description and status -->
+            <div>
+                <!-- <h1 v-for="variant in variants">{{purpleMat}}</h1> -->
+                <h1>{{productTitle}}</h1>
+                <p v-if="onSale">On Sale!</p>
+                <p v-if="inStock">In stock</p>
+                <p>Shipping: {{shippingCost}}</p>
+                <p v-else="!inStock">Out of Stock</p>
+                <!-- product decription starts -->
+                <ul>
+                    <li v-for="description in descriptions">{{description}}</li>
+                </ul>
+                <!-- product decription ends-->
+                <!-- product color starts -->
+                <div v-for = "(variant,index) in variants"
+                    :key = "variant.variantId"                     
+                    class ="colorBox"
+                    :style = "{backgroundColor: variant.variantColor}"
+                    @mouseover = "updateProduct(index)">
+                    <!-- <p class="colors"  >{{variant.variantColor}}</p> -->
+                </div>                
+                <!-- product color ends -->
+            </div>
+            <!-- product description and status ends-->
+            <!-- Add to cart button starts -->
+            <div class="cart">
+                <p class="qty"> Qty ({{ cart }})</p>
+                <button v-on:click="addToCart" :disabled = "!inStock">Add to cart</button>
+                <button v-on:click="removeFromCart" :disabled= "cart <= 0">Remove From Cart</button>
+            </div>
+            <!-- Add to cart button ends -->
+        </div>
         </div>`,
     //data function that returns data object
-    date() {
+    data() {
         //data goes here
         return {            
             //product title and description 
             brand: 'Hybrid',
             product: 'Gym Mat',
             onSale: false,
-            descriptions: ["Made from thick Studio-quality NBR rubber", "Non-slip and non-stretch", "Mats include either a carry strap or a carry bag"],
+            descriptions: ['Made from thick Studio-quality NBR rubber', 'Non-slip and non-stretch', 'Mats include either a carry strap or a carry bag'],
             selectedVariant: 0,
             variants: [
                 {
                      //Purple Gym Mat data
                     variantId: 1229,
                     variantColor: 'Purple',
-                    variantImg: "./images/purpleGymMat.jpg",
-                    variantAlt: "an image of purple gym mat",
+                    variantImg: './images/purpleGymMat.jpg',
+                    variantAlt: 'an image of purple gym mat',
                     variantQuantity: 30,
                 },
                 {
@@ -124,7 +129,7 @@ Vue.component('product', {
                     variantQuantity: 0,
                 }
             ],
-            cart: 0,
+            cart: 0
         }
     },
     methods: {
@@ -136,7 +141,6 @@ Vue.component('product', {
         },
         updateProduct(index) {
             this.selectedVariant = index
-            console.log(index)
         }
     },
     computed: {
@@ -149,6 +153,13 @@ Vue.component('product', {
         },
         inStock() {
             return this.variants[this.selectedVariant].variantQuantity
+        },
+        shippingCost(){
+           if(this.premium){
+               return "Free"
+           }else{
+               return 10.99
+           }
         }
     }
 })
@@ -156,6 +167,9 @@ Vue.component('product', {
 //create a new vue instance
 let app = new Vue({
     el: "#app",
+    data:{
+        premium: false
+    }
 })
 /*
 Note: There are two ways to write a methods, either use addToCart ()
