@@ -1,6 +1,6 @@
 <!-- 
-    File created: Janaury 07, 2021
-    Puprose: Practicing Vue.js Lesson: Condional Rendering List Rendering
+    File created: Janaury 12, 2021
+    Puprose: Practicing Vue.js Lesson: Components
     Author: Azza Bruce
  -->
 <!DOCTYPE html>
@@ -39,9 +39,9 @@
                 <!-- <h1 v-for="variant in variants">{{purpleMat}}</h1> -->
                 <h1>{{productTitle}}</h1>
                 <p v-if="onSale">On Sale!</p>
-                <p v-if="inStock">In stock</p>
+                <p v-if="!inStock">In stock</p>
                 <!-- <p v-else-if="inventory <=10 && purpleMatInventory >0">Almost out of stock</p> -->
-                <p v-else="!inStock"
+                <p v-else="inStock"
                     >Out of Stock</p>
                 <!-- product decription starts -->
                 <ul>
@@ -63,7 +63,7 @@
             <!-- Add to cart button starts -->
             <div class="cart">
                 <p class="qty"> Qty ({{ cart }})</p>
-                <button v-on:click="addToCart" :disabled = "!inStock">Add to cart</button>
+                <button v-on:click="addToCart" :disabled = "inStock">Add to cart</button>
                 <button v-on:click="removeFromCart" :disabled= "cart <= 0">Remove From Cart</button>
             </div>
             <!-- Add to cart button ends -->
@@ -106,5 +106,6 @@
     Computed Properties
         - Render a computed value instead of just a value to an element in the dom using computed option and create computed property, this 
         allows to update the h1 value autmoaticaly if either product, or brand properties change
-        -    
+    Components
+        -  
   -->
