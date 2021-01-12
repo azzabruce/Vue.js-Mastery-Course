@@ -7,38 +7,38 @@
 Vue.component('home',{
     template: 
     `<div class="home">
-    <!-- Sections container -->
-    <div class="options-container">
-        <div class="option option1">
-            <i class="fas fa-running fa-3x"></i>
-            <h3>{{title1}}</h3>
-        </div>
-        <div class="option option2">
-            <i class="far fa-chart-bar fa-3x"></i>
-            <h3>{{title2}}</h3>
-        </div>
+        <!-- Sections container -->
+        <div class="options-container">
+            <div class="option option1">
+                <i class="fas fa-running fa-3x"></i>
+                <h3>{{title1}}</h3>
+            </div>
+            <div class="option option2">
+                <i class="far fa-chart-bar fa-3x"></i>
+                <h3>{{title2}}</h3>
+            </div>
 
-        <div class="option option3">
-            <i class="fas fa-apple-alt fa-3x"></i>
-            <h3>{{title3}}</h3>
-        </div>
+            <div class="option option3">
+                <i class="fas fa-apple-alt fa-3x"></i>
+                <h3>{{title3}}</h3>
+            </div>
 
-        <div class="option option4">
+            <div class="option option4">
 
-            <i class="fas fa-bed fa-3x"></i>
-            <h3>{{title4}}</h3>
+                <i class="fas fa-bed fa-3x"></i>
+                <h3>{{title4}}</h3>
+            </div>
+            <div class="option option5">
+                <i class="fas fa-heartbeat fa-3x"></i>
+                <h3>{{title5}}</h3>
+            </div>
+            <div class="option option6">
+                <i class="fas fa-question fa-3x"></i>
+                <h3>{{title6}}</h3>
+            </div>
         </div>
-        <div class="option option5">
-            <i class="fas fa-heartbeat fa-3x"></i>
-            <h3>{{title5}}</h3>
-        </div>
-        <div class="option option6">
-            <i class="fas fa-question fa-3x"></i>
-            <h3>{{title6}}</h3>
-        </div>
-    </div>
     </div>`,
-
+//data function to render section tiles on the html home page
     data(){
         return {
              // option titles
@@ -96,7 +96,7 @@ Vue.component('product', {
                 <!-- Add to cart button ends -->
             </div>
         </div>`,
-
+    //data function that returns data object
     date() {
         //data goes here
         return {            
