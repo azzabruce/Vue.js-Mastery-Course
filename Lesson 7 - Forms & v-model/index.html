@@ -1,0 +1,47 @@
+<!-- 
+    File created: Janaury 13, 2021
+    Puprose: Practicing Vue.js Lesson: Forms & v-model
+    Author: Azza Bruce
+ -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vue.js Lessons</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://kit.fontawesome.com/5b91bc9d21.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <!-- navigation bar -->
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="#browse">Browse</a>
+            <a href="store.html">Store</a>
+            <a href="#faq">FAQ</a>
+            <a href="#testimonals">Testimonials</a>
+            <a href="contactUs.html">Contact Us</a>
+        </div>
+        <!-- Main app, body section -->
+        <div id="app">
+            <home></home>
+        </div>
+    </body>
+    <!-- web app footer -->
+    <footer class="footer">
+        <!-- using the shortned v-binded directive-->
+        <a href="index.html">Home</a>
+        <!-- using the Vue v-binded  directive-->
+        <!-- for the prurpose of practice, I am using the short and long v-binded directive, however for future use, it is best to use the shortned directive -->
+        <a href="#browse">Browse</a>
+        <a href="store.html">Store</a>
+        <a href="#faq">FAQ</a>
+        <a href="#testimonals">Testimonials</a>
+        <a href="#contactUs.html ">Contact Us</a>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+</html>
+<!-- in View we create an instance Vue which is the heart of the application, 
+     plugs to an elment in the dom , and that element uses an expression to 
+ display that instance's data-->

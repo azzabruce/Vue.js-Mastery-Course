@@ -1,6 +1,6 @@
 /*
- File created: Janaury 12, 2021
- Puprose: Create components 
+ File created: Janaury 13, 2021
+ Puprose: Communicating events
  Author: Azza Bruce
 */
 //create the home page component 
@@ -61,45 +61,45 @@ Vue.component('product', {
     },
     template:
         `<div class= "product">
-        <!-- Mat collections store container -->
-        <div class="store-container">
-            <div class="matsCollection">
-                <!-- using the Vue v-binded  directive-->
-                <!-- for the prurpose of practice, I am using the short and long v-binded directive, however for future use, it is best to use the shortned directive -->
-                <img  v-bind:src="image">
+            <!-- Mat collections store container -->
+            <div class="store-container">
+                <div class="matsCollection">
+                    <!-- using the Vue v-binded  directive-->
+                    <!-- for the prurpose of practice, I am using the short and long v-binded directive, however for future use, it is best to use the shortned directive -->
+                    <img  v-bind:src="image">
+                </div>
+                <!-- product description and status -->
+                <div>
+                    <!-- <h1 v-for="variant in variants">{{purpleMat}}</h1> -->
+                    <h1>{{productTitle}}</h1>
+                    <p v-if="onSale">On Sale!</p>
+                    <p v-if="inStock">In stock</p>
+                    <p v-else="!inStock">Out of Stock</p>
+                    <p>Shipping: {{shippingCost}}</p>
+                    <!-- product decription starts -->
+                    <ul>
+                        <li v-for="description in descriptions">{{description}}</li>
+                    </ul>
+                    <!-- product decription ends-->
+                    <!-- product color starts -->
+                    <div v-for="(variant,index) in variants"
+                        :key="variant.variantId"                     
+                        class="colorBox"
+                        :style="{backgroundColor: variant.variantColor}"
+                        @mouseover="updateProduct(index)">
+                        <!-- <p class="colors"  >{{variant.variantColor}}</p> -->
+                    </div>                
+                    <!-- product color ends -->
+                    <div class="cart">
+                        <button v-on:click="addToCart" :disabled="!inStock">Add to cart</button>
+                        <button v-on:click="removeFromCart" :disabled="cart<=0">Remove from cart</button>
+                    </div>
+                <!-- Add to cart button ends -->
+                </div>
+                <!-- product description and status ends-->
+                <!-- Add to cart button starts -->
+                
             </div>
-            <!-- product description and status -->
-            <div>
-                <!-- <h1 v-for="variant in variants">{{purpleMat}}</h1> -->
-                <h1>{{productTitle}}</h1>
-                <p v-if="onSale">On Sale!</p>
-                <p v-if="inStock">In stock</p>
-                <p v-else="!inStock">Out of Stock</p>
-                <p>Shipping: {{shippingCost}}</p>
-                <!-- product decription starts -->
-                <ul>
-                    <li v-for="description in descriptions">{{description}}</li>
-                </ul>
-                <!-- product decription ends-->
-                <!-- product color starts -->
-                <div v-for = "(variant,index) in variants"
-                    :key = "variant.variantId"                     
-                    class ="colorBox"
-                    :style = "{backgroundColor: variant.variantColor}"
-                    @mouseover = "updateProduct(index)">
-                    <!-- <p class="colors"  >{{variant.variantColor}}</p> -->
-                </div>                
-                <!-- product color ends -->
-            </div>
-            <!-- product description and status ends-->
-            <!-- Add to cart button starts -->
-            <div class="cart">
-                <p class="qty"> Qty ({{ cart }})</p>
-                <button v-on:click="addToCart" :disabled = "!inStock">Add to cart</button>
-                <button v-on:click="removeFromCart" :disabled="cart <= 0">Remove From Cart</button>
-            </div>
-            <!-- Add to cart button ends -->
-        </div>
         </div>`,
     //data function that returns data object
     data() {
@@ -128,17 +128,17 @@ Vue.component('product', {
                     variantAlt: 'an image of a blue gym mat',
                     variantQuantity: 0,
                 }
-            ],
-            cart: 0
+            ]
         }
     },
     methods: {
         addToCart: function () {
-            this.cart += 1
+            this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
-        removeFromCart: function () { //
-            this.cart -= 1 // the button removes items, How do we stop it from going below 0
-        },
+       removeFromCart(){
+           this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId)
+       },
+       
         updateProduct(index) {
             this.selectedVariant = index
         }
@@ -146,7 +146,7 @@ Vue.component('product', {
     computed: {
         //computed values go here
         productTitle() {
-            return this.brand + ' ' + this.product
+            return  `${this.brand} ${this.product}`
         },
         image() {
             return this.variants[this.selectedVariant].variantImg
@@ -168,7 +168,20 @@ Vue.component('product', {
 let app = new Vue({
     el: "#app",
     data:{
-        premium: true
+        premium: true,
+        cart: []
+    },
+    methods:{
+        addToCart(id){
+            this.cart.push(id)
+        },
+        removeFromCart(id){ //
+            for (var i = this.cart.length - 1; i >= 0; i--) {
+                if (this.cart[i] === id) {
+                 this.cart.splice(i, 1);
+                }
+               }
+        }
     }
 })
 /*

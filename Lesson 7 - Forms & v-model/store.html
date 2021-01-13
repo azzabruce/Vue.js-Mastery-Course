@@ -1,0 +1,84 @@
+<!-- 
+    File created: Janaury 13, 2021
+    Puprose: Practicing Vue.js Lesson: Forms & v-model
+    Author: Azza Bruce
+ -->
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Vue.js Lessons</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/styles.css">
+        <script src="https://kit.fontawesome.com/5b91bc9d21.js" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <!-- navigation bar -->
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="#browse">Browse</a>
+            <a href="store.html">Store</a>
+            <a href="#faq">FAQ</a>
+            <a href="#testimonals">Testimonials</a>
+            <a href="#contactUs">Contact Us</a>
+        </div>
+        <!-- Main app, body section -->
+        <div id="app">
+            <product :premium = "premium" @add-to-cart="addToCart" @remove-from-cart="removeFromCart"></product>
+            <div >
+                <p class="qty"> Qty ({{cart.length}})</p> 
+            </div>
+        </div>
+    </body>
+    <!-- web app footer -->
+    <footer class="footer">
+        <!-- using the shortned v-binded directive-->
+        <a href="index.html">Home</a>
+        <a href="#browse">Browse</a>
+        <a href="store.html">Store</a>
+        <a href="faq">FAQ</a>
+        <a href="testimonals">Testimonials</a>
+        <a href="contactUs.html">Contact Us</a>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+
+</html>
+<!-- in View we create an instance Vue which is the heart of the application, 
+     plugs to an elment in the dom , and that element uses an expression to 
+ display that instance's data-->
+
+<!-- 
+     In this leason I have learnt the following:
+     Attribute binding
+        - Use v-bind:src ="property value" or for short use :src="property value"
+     Condtional rendering
+        -v-if if we have to toggle between two options to show something or not show. Other alterntive is to use v-show
+        -v-else-if
+        -v-else
+     List rendering
+         use the directive v-for
+    Iterating Over Objects
+
+    Class & style Binding
+        - In this file, instead of using text for various product colors when user hover over text. Instead I will use class and style binding and change color text to little boxes to indicate color
+        How do I include multiple styles in one class?
+    Computed Properties
+        - Render a computed value instead of just a value to an element in the dom using computed option and create computed property, this 
+        allows to update the h1 value autmoaticaly if either product, or brand properties change
+    Components
+        - are re-usable building blocks that has structure and function. It consists of a name and option objects, inside of a componant we find
+            template
+            data as a function
+            methods
+            computed values
+        - props are variables that are filled with data from the parent down to its child component, so that whenever a compnenets trys to access information or a porperty from a parent
+          props play as the filter to transfer that data... 
+    Communication Events
+        - to connect an event to a component, first we need to defin an event in the compnonat under methods by giving adding the $emit inside the function and also giving it a name
+        -then adding an event listener in the <product> component inside html file as follows @name-of-event and sign it to the approprite from the instance method
+
+
+  -->
