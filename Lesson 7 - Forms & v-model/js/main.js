@@ -192,7 +192,7 @@ Vue.component('contact-us-form',{
             fname: null,
             lname: null,
             message: null,
-            errors:
+            errors:[]
         }
     },
     methods:{
