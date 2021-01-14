@@ -92,7 +92,7 @@ Vue.component('product', {
                     <!-- product color ends -->
                     <div class="cart">
                         <button v-on:click="addToCart" :disabled="!inStock">Add to cart</button>
-                        <button v-on:click="removeFromCart" :disabled="cart<=0">Remove from cart</button>
+                        <button v-on:click="removeFromCart" :disabled="!inStock">Remove from cart</button>
                     </div>
                 <!-- Add to cart button ends -->
                 </div>
@@ -135,7 +135,7 @@ Vue.component('product', {
         addToCart() {
             this.$emit('add-to-cart', this.variants[this.selectedVariant].variantId)
         },
-       removeFromCart(){
+        removeFromCart(){
            this.$emit('remove-from-cart', this.variants[this.selectedVariant].variantId)
        },
        
@@ -165,46 +165,59 @@ Vue.component('product', {
 })
 //Contact us form component 
 
+//Contact us form component 
+
 Vue.component('contact-us-form',{
     template: `
         <div class="container">
-        <form class="contact-us-form" @submit.prevent="onSubmit" >
-            <label for="fname">First Name</label>
-            <input v-model="fname" type="text" id="fname" name="firstname" placeholder="Your name..">        
-            <label for="lname">Last Name</label>
-            <input v-model="lname" type="text" id="lname" name="lastname" placeholder="Your last name..">       
-            <label for="message">Message</label>
-            <textarea v-model="message" id="message" name="message" placeholder="Write your message.. We care!" style="height:200px"></textarea>       
-            <input type="submit" value="Submit">
-        </form>
+            <form class="contact-us-form" @submit.prevent="onSubmit" >
+                <p class="error" v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                </p>
+                <label for="fname">First Name</label>
+                <input v-model="fname" type="text" id="fname" name="firstname" placeholder="Your name..">        
+                <label for="lname">Last Name</label>
+                <input v-model="lname" type="text" id="lname" name="lastname" placeholder="Your last name..">       
+                <label for="message">Message</label>
+                <textarea v-model="message" id="message" name="message" placeholder="Write us message.. We care!" style="height:200px"></textarea>       
+                <input type="submit" value="Submit">
+            </form>
         </div>`,
     data(){
         return {
             //data goes here
             fname: null,
             lname: null,
-            message: null
+            message: null,
+            errors:
         }
     },
     methods:{
         //methods go here
         onSubmit(){
-            let formInputs = {
-                fname = this.fname,
-                lname = this.lname,
-                message = thismessage
-            }
-        //we can send a custom event, 
-        this.$emit('submitedForm', formInputs)
-        //we want to set the input values to null so whenever we submit the form input values reset
-        this.fname = null
-        this.lname = null
-        this.message = null
-        }
+            if(this.fname && this.lname && this.message){
+                let formInputs = {
+                    fname: this.fname,
+                    lname: this.lname,
+                    message: this.message
+                }
+                //we can send a custom event, 
+                this.$emit('submitedForm', formInputs)
+                //we want to set the input values to null so whenever we submit the form input values reset
+                this.fname = null
+                this.lname = null
+                this.message = null
+            } else{
+                if(!this.fname) this.errors.push("Input first name..")
+                if(!this.lname) this.errors.push("Input last name..")
+                if(!this.message) this.errors.push("Input last name..")
+            } 
+        }         
     },
-    computed:{
-        //computed values go here
-    }
+       
 })
 //create a new vue instance
 let app = new Vue({
@@ -223,7 +236,7 @@ let app = new Vue({
                 if (this.cart[i] === id) {
                  this.cart.splice(i, 1);
                 }
-               }
+            }
         },
         addFormData(formInputs){
             this.formData.push(formInputs)
@@ -233,7 +246,7 @@ let app = new Vue({
 /*
 Note: There are two ways to write a methods, either use addToCart ()
 
-or using an annamous function
+or using an anonymous function
 addToCart: function(){}
 
 */
